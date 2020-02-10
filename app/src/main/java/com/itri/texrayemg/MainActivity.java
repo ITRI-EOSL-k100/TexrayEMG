@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
                         int k =random.nextInt(255)+1;
                         int colors[] = { 0xffa6c0cd, 0xff255779, 0xffa6c0cd };
 
-                        colorMatrix();
-//                    ivQuadriceps.setColorFilter(Color.argb(255, i, j, k));
-//                    ivGluteus.setColorFilter(Color.argb(150, j, k, i));
+//                        colorMatrix();
+                    ivQuadriceps.setColorFilter(Color.argb(255, i, j, k));
+                    ivGluteus.setColorFilter(Color.argb(150, j, k, i));
 
 
                         //Transparent Color Effect Over the Image Bitmap in Android
