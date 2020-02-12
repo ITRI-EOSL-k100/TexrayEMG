@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.timqi.sectorprogressview.ColorfulRingProgressView;
 
@@ -29,9 +30,12 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     ImageView ivQuadriceps, ivGluteus, ivBiceps;
+    TextView tvPercent1, tvPercent2, tvPercent3;
+    ColorfulRingProgressView crpv1, crpv2, crpv3;
     Timer timer;
     int tt=10;
     int color = 0;
+    int progress = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         ivQuadriceps = findViewById(R.id.iv_quadriceps);
         ivBiceps = findViewById(R.id.iv_biceps);
         ivGluteus = findViewById(R.id.iv_gluteus);
+        tvPercent1 =findViewById(R.id.tvPercent1);
+        tvPercent2 =findViewById(R.id.tvPercent2);
+        tvPercent3 =findViewById(R.id.tvPercent3);
+        crpv1 = findViewById(R.id.crpv1);
+        crpv2 = findViewById(R.id.crpv2);
+        crpv3 = findViewById(R.id.crpv3);
         timer = new Timer();//時間函示初始化
 
 
@@ -88,6 +98,39 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         timer.schedule(task, 500, 1000);//時間在幾毫秒過後開始以多少毫秒執行
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    runOnUiThread(new Runnable(){
+                        @Override
+                        public void run () {
+                            Random random = new Random();
+                            progress++;
+                            crpv1.setPercent(progress);
+                            tvPercent1.setText(progress + "");
+
+                            crpv2.setPercent(progress);
+                            tvPercent2.setText(progress + "");
+
+                            crpv3.setPercent(progress);
+                            tvPercent3.setText(progress + "");
+                        }
+                    });
+                    try {
+                        Thread.sleep(1000);
+                    }catch (InterruptedException e){
+
+                    }
+
+                }
+            }
+        }).start();
     }
 
     private void setIVColorFilter(int i, int j, int k) {
