@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView ivQuadriceps, ivGluteus, ivBiceps;
     Timer timer;
     int tt=10;
+    int color = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         tt--;//時間倒數
+                        color++;
                         Random random = new Random();
                         int i =random.nextInt(255)+1;
                         int j =random.nextInt(255)+1;
@@ -60,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
                         int colors[] = { 0xffa6c0cd, 0xff255779, 0xffa6c0cd };
 
 //                        colorMatrix();
-                    ivQuadriceps.setColorFilter(Color.argb(255, i, j, k));
-                    ivGluteus.setColorFilter(Color.argb(150, j, k, i));
+                    ivQuadriceps.setColorFilter(Color.argb(100, 255, i, 0));
+                    ivGluteus.setColorFilter(Color.argb(100, 255, j, 0));
+                    ivBiceps.setColorFilter(Color.argb(100, 255, k, 0));
 
 
                         //Transparent Color Effect Over the Image Bitmap in Android
@@ -73,7 +76,9 @@ public class MainActivity extends AppCompatActivity {
 
 //                        gradientDrawable(colors);
 
-
+//                        if (color > 256){
+//                            color = 0;
+//                        }
 
                         if (tt < 1) {//if判斷示裡面放置在時間結束後想要完成的事件
                             tt = 10; //讓時間執行緒保持輪迴
@@ -82,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
-        timer.schedule(task, 1000, 1000);//時間在幾毫秒過後開始以多少毫秒執行
+        timer.schedule(task, 500, 1000);//時間在幾毫秒過後開始以多少毫秒執行
     }
 
     private void setIVColorFilter(int i, int j, int k) {
